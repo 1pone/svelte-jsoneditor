@@ -18,8 +18,8 @@
         faBan, faSort
     } from '@fortawesome/free-solid-svg-icons'
     import type {JSONValue} from 'immutable-json-patch'
-    import {compileJSONPointer, getIn} from 'immutable-json-patch'
-    import {initial, isEmpty} from 'lodash-es'
+    import {compileJSONPointer, getIn, isJSONObject} from 'immutable-json-patch'
+    import {initial, isEmpty, isString} from 'lodash-es'
     import {
         canConvert,
         isKeySelection,
@@ -66,7 +66,7 @@
 
     $: selection = documentState.selection
 
-    $: hasJson = json !== undefined
+    $: hasJson = json && isJSONObject(json)
     $: hasSelection = selection != null
     $: rootSelected = hasSelection && isEmpty(selection.focusPath)
     $: focusValue = hasSelection ? getIn(json, selection.focusPath) : undefined
@@ -123,6 +123,7 @@
 
     $: isArrayNode = hasJson && selection != null && Array.isArray(focusValue)
     $: isLeafNode = hasJson && selection != null && !isObjectOrArray(focusValue)
+    $: isPureString = json && isString(json)
 
 
     function handleIgnoreKey(type?: CompareConfigType ) {
@@ -172,9 +173,10 @@
                     main: {
                         type: 'button',
                         text: 'Ignore Key',
+                        disabled: !isLeafNode,
                         onClick: () => handleIgnoreKey(),
                     },
-                    items: [{
+                    items: !isLeafNode ? []:[{
                         type: 'button',
                         text: 'Ignore to Global',
                         onClick: () => handleIgnoreKey('global'),
@@ -190,6 +192,7 @@
                 }] : []).concat(onIgnoreKeyMono ? [{
                     type: 'button',
                     text: 'Ignore Key',
+                    disabled: !isLeafNode,
                     onClick: () => handleIgnoreKeyMono(),
                 }] : []).concat(onSortKey ? [{
                     type: 'button',
@@ -214,6 +217,7 @@
                 }] : []).concat(onNodeDecode ? [{
                     type: 'button',
                     text: 'Node Decode',
+                    disabled: !isLeafNode && !isPureString,
                     onClick: () => handleNodeDecode(),
                 }] : []),
             }]
@@ -229,9 +233,10 @@
                     main: {
                         type: 'button',
                         text: '添加忽略',
+                        disabled: !isLeafNode,
                         onClick: () => handleIgnoreKey(),
                     },
-                    items: [{
+                    items: !isLeafNode ? []: [{
                         type: 'button',
                         text: "忽略至全局",
                         onClick: () => handleIgnoreKey('global'),
@@ -247,6 +252,7 @@
                 },] : []).concat(onIgnoreKeyMono ? [{
                     type: 'button',
                     text: '添加忽略',
+                    disabled: !isLeafNode,
                     onClick: () => handleIgnoreKeyMono(),
                 }] : []).concat(onSortKey ? [{
                     type: 'button',
@@ -271,6 +277,7 @@
                 }] : []).concat(onNodeDecode ? [{
                     type: 'button',
                     text: '节点解析',
+                    disabled: !isLeafNode && !isPureString,
                     onClick: () => handleNodeDecode(),
                 }] : []),
             }]
