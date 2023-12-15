@@ -173,10 +173,9 @@
                     main: {
                         type: 'button',
                         text: 'Ignore Key',
-                        disabled: !isLeafNode,
                         onClick: () => handleIgnoreKey(),
                     },
-                    items: !isLeafNode ? []:[{
+                    items: [{
                         type: 'button',
                         text: 'Ignore to Global',
                         onClick: () => handleIgnoreKey('global'),
@@ -192,7 +191,6 @@
                 }] : []).concat(onIgnoreKeyMono ? [{
                     type: 'button',
                     text: 'Ignore Key',
-                    disabled: !isLeafNode,
                     onClick: () => handleIgnoreKeyMono(),
                 }] : []).concat(onSortKey ? [{
                     type: 'button',
@@ -207,7 +205,7 @@
                 }] : []).concat(onCompressKey ? [{
                   type: 'button',
                   text: 'Compress Key',
-                  disabled: !isLeafNode,
+                  disabled: !isLeafNode && !isPureString,
                   onClick: () => handleCompressKey(),
                 }] : []).concat(onDiffMatch ? [{
                   type: 'button',
@@ -233,10 +231,9 @@
                     main: {
                         type: 'button',
                         text: '添加忽略',
-                        disabled: !isLeafNode,
                         onClick: () => handleIgnoreKey(),
                     },
-                    items: !isLeafNode ? []: [{
+                    items:  [{
                         type: 'button',
                         text: "忽略至全局",
                         onClick: () => handleIgnoreKey('global'),
@@ -252,7 +249,6 @@
                 },] : []).concat(onIgnoreKeyMono ? [{
                     type: 'button',
                     text: '添加忽略',
-                    disabled: !isLeafNode,
                     onClick: () => handleIgnoreKeyMono(),
                 }] : []).concat(onSortKey ? [{
                     type: 'button',
@@ -267,7 +263,7 @@
                 }] : []).concat(onCompressKey ? [{
                   type: 'button',
                   text: '添加压缩',
-                  disabled: !isLeafNode,
+                  disabled: !isLeafNode && !isPureString,
                   onClick: () => handleCompressKey(),
                 }] : []).concat(onDiffMatch ? [{
                   type: 'button',
