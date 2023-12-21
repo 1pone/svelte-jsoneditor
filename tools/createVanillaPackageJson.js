@@ -19,7 +19,7 @@ const usedDependencies = usedDependencyNames.reduce((deps, name) => {
 
 const vanillaPackage = {
   ...pkg,
-  name: 'vanilla-jsoneditor',
+  name: '@arextest/vanilla-jsoneditor',
   scripts: {},
   dependencies: usedDependencies, // needed for the TypeScript types
   devDependencies: {},
