@@ -5,6 +5,7 @@ import EditableValue from './plugins/value/components/EditableValue.svelte'
 import EnumValue from './plugins/value/components/EnumValue.svelte'
 import ReadonlyValue from './plugins/value/components/ReadonlyValue.svelte'
 import TimestampTag from './plugins/value/components/TimestampTag.svelte'
+import ReadonlyPassword from './plugins/value/components/ReadonlyPassword.svelte'
 
 // editor
 export { JSONEditor }
@@ -13,7 +14,15 @@ export * from './types.js'
 // value plugins
 export { renderValue } from './plugins/value/renderValue.js'
 export { renderJSONSchemaEnum } from './plugins/value/renderJSONSchemaEnum.js'
-export { BooleanToggle, ColorPicker, EditableValue, EnumValue, ReadonlyValue, TimestampTag }
+export {
+  BooleanToggle,
+  ColorPicker,
+  EditableValue,
+  EnumValue,
+  ReadonlyValue,
+  TimestampTag,
+  ReadonlyPassword
+}
 
 // validator plugins
 export * from './plugins/validator/createAjvValidator.js'
